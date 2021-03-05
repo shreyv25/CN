@@ -39,7 +39,7 @@ int main()
 /*
 Given an integer sorted array (sorted in increasing order) and an element x, find the x in given array using binary search. Return the index of x.
 Return -1 if x is not present in the given array.
-Note : If given array size is even, take first mid.
+Note: If given array size is even, take first mid.
 Input format :
 
 Line 1 : Array size
