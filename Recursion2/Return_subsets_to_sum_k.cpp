@@ -1,12 +1,22 @@
 #include <bits/stdc++.h>
 using namespace std;
+/***
+You need to save all the subsets in the given 2D output array. 
+And return the number of subsets(i.e. number of rows filled in output) from the given function.
 
+In ith row of output array, 1st column contains length of the ith subset. And from 1st column 
+actual subset follows.
+For eg. Input : {1, 3, 4, 2} and K = 5, then output array should contain
+	{{2, 1, 4},	// Length of this subset is 2
+	{2, 3, 2}}	// Length of this subset is 2
 
-int subsetSumToK(int a[], int l,int** o,int k)
+Don’t print the subsets, just save them in output.
+***/
+int subsetSumToK(int a[], int l,int o[][50],int k)
 {
     if(l==0)
     {
-      if(k==0)
+      if(k== 0)
         {
           o[0][0]=0;
           return 1;
@@ -29,28 +39,24 @@ int subsetSumToK(int a[], int l,int** o,int k)
     return f+inck;
 }
 
-int main()
-{
-    int input[20],length, k;
-    int **array;
-    array = new int *[10000];
-    for(int i = 0; i <10000; i++)
-    array[i] = new int[50];
-    cin >> length;
-    for(int i=0; i < length; i++)
-    cin >> input[i];    
-    cin >> k;
-    int size = subsetSumToK(input, length, array, k);
+int main() {
+  int input[20],length, output[10000][50], k;
+  cin >> length;
+  for(int i=0; i < length; i++)
+    cin >> input[i];
 
-    for( int i = 0; i < size; i++) 
-    { 
-	for( int j = 1; j <= array[i][0]; j++) 
-    { 
-		cout << array[i][j] << " ";
+  cin >> k;
+  
+  int size = subsetSumToK(input, length, output, k);
+
+  for( int i = 0; i < size; i++) { 
+	for( int j = 1; j <= output[i][0]; j++) { 
+		cout << output[i][j] << " ";
     }
     cout << endl;
-    }    
+  }
 }
+
 /*
 Given an array A of size n and an integer K, return all subsets of A which sum to K.
 Subsets are of length varying from 0 to n, that contain elements of the array. But the order of 
@@ -70,15 +76,3 @@ Sample Output :
 3 3
 5 1
 */
-/***
-You need to save all the subsets in the given 2D output array. 
-And return the number of subsets(i.e. number of rows filled in output) from the given function.
-
-In ith row of output array, 1st column contains length of the ith subset. And from 1st column 
-actual subset follows.
-For eg. Input : {1, 3, 4, 2} and K = 5, then output array should contain
-	{{2, 1, 4},	// Length of this subset is 2
-	{2, 3, 2}}	// Length of this subset is 2
-
-Don’t print the subsets, just save them in output.
-***/
