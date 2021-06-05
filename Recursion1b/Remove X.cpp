@@ -1,32 +1,22 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-void fillspace(char a[],int loc,int size)
-{
-    for(int i=loc+1;i<size;i++)
-    {
-        a[i-1]=a[i];
-    }
-    a[size-1]='\0';
-}
-int searchx(char a[],int n)
-{
-    for(int i=0;i<n;i++)
-    {
-        if(a[i]=='x')return i;
-    }
-    return -1;
-}
 void removeX(char a[]) {
-    {int n=strlen(a);
-    if(n<=0)return;}
-
-    {int loc=searchx(a,n);
-    if(loc==(-1))return;
-    fillspace(a,loc,n);}
-
-    {removeX(a);}
+    if(a[0]=='\0')return;
+    int size;
+    for(size=0;a[size]!='\0';size++);
+    if(a[0]=='x')
+    {
+        for(int i=0;i<size-1;i++)
+        {
+            a[i]=a[i+1];
+        }
+        a[size-1]='\0';
+        removeX(a);
+    }
+    removeX(a+1);
 }
+
 int main() {
     char input[100];
     cin.getline(input, 100);

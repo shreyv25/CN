@@ -1,32 +1,26 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-void makespace(char a[],int size,int location)
-{
-    for(int i=size-1;i>=location;i--)
-    {
-        a[i+2]=a[i];
-    }
-    a[size+2]='\0';
-}
-int searchpi(char a[],int size)
-{
-    for(int i=0;i<size-1;i++)
-    {
-        if(a[i]=='p' && a[i+1]=='i')return i;
-    }
-    return -1;
-}
+// Change in the given string itself. So no need to return or print anything
+
 void replacePi(char a[]) {
-    int n=strlen(a);
-    if(n<=0)return;
-    int loc=-1;
-    loc=searchpi(a,n);
-    if(loc==-1)return;
-    makespace(a,n,loc);
-    {a[loc]='3';a[loc+1]='.';a[loc+2]='1';a[loc+3]='4';}
-    replacePi(a+loc+4);    
+	if(a[0]=='\0')return;
+    int size;
+    for(size=0;a[size]!='\0';size++);
+    if(a[0]=='p'&&a[1]=='i'){
+        for(int i=size-1;i>1;i--){
+            a[i+2]=a[i];
+        }
+        a[size+2]='\0';
+        a[0]='3';
+        a[1]='.';
+        a[2]='1';
+        a[3]='4';
+    replacePi(a+4);
+    }
+    replacePi(a+1);
 }
+
 int main() {
     char input[10000];
     cin.getline(input, 10000);
