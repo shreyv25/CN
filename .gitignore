@@ -3,3 +3,5 @@
 .vscode/launch.json
 *.exe
 !spec/*.exe
+Recursion2/build/
+.build/

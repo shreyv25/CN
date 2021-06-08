@@ -1,75 +1,56 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void mergeS(int a[],int l, int h)
+void merge2(int a[], int si, int h, int e)
 {
-    if(l>h)return;
-    if((h-l)<2)return;
-    int mid=(l+h)/2;
-    mergeS(a,l,mid);mergeS(a,mid+1,h);
-    merge(a,l,mid,h);
-}
-void merge(int a[],int l,int mid,int h)
-{
-    int* tmp=new int[l-h+1];
-    int i=0;
-    int e1=mid;
-    int f=l,k=h;
-    while(mid<h && l<=e1)
-    { 
-      if(a[l]<a[mid+1]){tmp[i]=a[l];i++;l++;}
-      else if(a[l]==a[mid+1]){tmp[i]=a[l];
-      tmp[i+1]=a[mid+1];
-      i+=2;
-      l++;mid++;}
-      else{tmp[i]=a[mid+1];i++;mid++;}
-    }
-    if(mid>h){
-      for(int j=l;j<e1+1;j++){tmp[i]=a[j];i++;}
-    }
-    if(l>e1){
-    for(int j=mid+1;j<k+1;j++){tmp[i]=a[j];i++;}
-    }
-    for(int j=f;j<k+1;j++)
+    int* arr = new int[e-si+1];
+    int i = si, j = h + 1, k = 0;
+    while (i != h+1 && j != e+1)
     {
-      a[j]=tmp[j];
+        if (a[i] <= a[j])
+        {
+            arr[k++] = a[i++];
+        }
+        else
+        {
+            arr[k++] = a[j++];
+        }
     }
-    delete tmp;
+    while (i != h+1)
+    {
+        arr[k++] = a[i++];
+    }
+    while (j != e+1)
+    {
+        arr[k++] = a[j++];
+    }
+    for (int f = 0; f < k; f++)
+    {
+        a[f+si] = arr[f];
+    }
+    delete arr;
 }
-void mergeSort(int a[], int n)
+
+void mergeS(int a[], int si, int e)
 {
-    mergeS(a,0,n-1);
+    if (si >= e)
+        return;
+    int h = (si + e) / 2;
+    mergeS(a, si, h);
+    mergeS(a, h + 1, e);
+    merge2(a, si, h, e);
 }
 
-int main() {
-  int length;
-  cin >> length;
-  int* input = new int[length];
-  for(int i=0; i < length; i++)
-    cin >> input[i];
-  mergeSort(input, length);
-  for(int i = 0; i < length; i++) {
-    cout << input[i] << " ";
-  }
+
+int main()
+{
+    int n;
+    cin >> n;
+    int arr[n];
+    for (int i = 0; i < n; i++)
+        cin >> arr[i];
+    mergeS(arr, 0, n - 1);
+    for (int i = 0; i < n; i++)
+        cout << arr[i] << " ";
+    return 0;
 }
-
-/*
-base case 
-1. size =1
-2. si>ei
-
-mid = (si+ei)/2
-2 calls :- si,mid)(mid+1,ei
-
-merging
-use complete merger sort algo that you've learnt earlier
-
-outline
-call merge sort on two halves and then merge the two halves
-Test Cases:-
-6 
-2 6 8 5 4 3
-
-5
-2 1 5 2 3
-*/
